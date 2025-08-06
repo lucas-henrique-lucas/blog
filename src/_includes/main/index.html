@@ -1,0 +1,29 @@
+---
+layout: main/base.html
+---
+<div class="sm:container m-0 p-0 sm:mx-auto sm:p-4 md:p-10">
+	<div class="the-card">
+    <!-- cover -->
+    <figure>
+      <img src="{{ cover }}" alt="cover" />
+    </figure>
+    <!-- Profile and menus -->
+    {% include "index/profile.html" %}
+    <!-- content -->
+    <div class="grow">
+      <div class="card-body pt-4 tn:pt-8">
+        <div class="w-full">
+          <div class="prose max-w-none pb-8">
+            {{ content }}
+          </div>
+          {% include "index/recent.html" %}
+        </div>
+      </div>
+    </div>
+    <!-- Footer credit -->
+    {% include "footer/footer-sosmed.html" %}
+    <div class="text-center py-4">
+      {% include "footer/footer-credit.html" %}
+    </div>
+  </div>
+</div>

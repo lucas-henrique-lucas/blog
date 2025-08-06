@@ -1,0 +1,19 @@
+---
+title: Search
+layout: main/base.html
+cover: /asset/index/cover.webp
+permalink: /search.html
+---
+<div class="sm:container m-0 p-0 sm:mx-auto sm:p-4 md:p-10">
+	<div class="the-card">
+		<!-- cover -->
+    <figure>
+      <img src="{{ cover }}" alt="cover" />
+    </figure>
+		<!-- navbar -->
+		{% include "nav/nav-pages.html" %}
+		<div class="card-body">
+			<div id="search-results" class="flex flex-col gap-4"></div>
+		</div>
+	</div>
+</div>

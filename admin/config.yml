@@ -1,0 +1,72 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/asset/photos"
+public_folder: "/asset/photos"
+
+collections:
+  - name: "photos"
+    label: "Posts com Imagens"
+    folder: "src/photos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "main/post-photos.html",
+        }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descrição", name: "description", widget: "text" }
+      - { label: "Palavras-chave", name: "keyword", widget: "string" }
+      - {
+          label: "Imagens de Capa",
+          name: "cover",
+          widget: "list",
+          allow_add: true,
+          field:
+            {
+              label: "URL",
+              name: "url",
+              widget: "image",
+              media_folder: "/src/asset/photos/",
+              public_folder: "/asset/photos/",
+            },
+        }
+      - {
+          label: "Miniatura",
+          name: "thumbnail",
+          widget: "image",
+          media_folder: "/src/asset/photos/thumbnail/",
+          public_folder: "/asset/photos/thumbnail/",
+        }
+      - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Texto", name: "body", widget: "markdown" }
+
+  - name: "blog"
+    label: "Posts de Texto"
+    folder: "src/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {
+          label: "Layout",
+          name: "layout",
+          widget: "hidden",
+          default: "main/post-blog.html",
+        }
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Descrição", name: "description", widget: "text" }
+      - { label: "Palavras-chave", name: "keyword", widget: "string" }
+      - {
+          label: "Imagem de Capa",
+          name: "cover",
+          widget: "hidden",
+          default: "/asset/blog/cover.webp",
+        }
+      - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Texto", name: "body", widget: "markdown" }
