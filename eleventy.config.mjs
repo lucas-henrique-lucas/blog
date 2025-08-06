@@ -31,8 +31,8 @@ export default function (eleventyConfig) {
     eleventyConfig.addPlugin(eleventyPluginFilesMinifier);
   }
 
-  // Global data for root
-  eleventyConfig.addGlobalData("lang", "pt-BR"); // your lang attribute
+  // Global data
+  eleventyConfig.addGlobalData("lang", "pt-BR");
   eleventyConfig.addGlobalData("rootTitle", "Lucas/perfil.");
   eleventyConfig.addGlobalData("rootURL", "https://lucs.netlify.app");
   eleventyConfig.addGlobalData(
@@ -42,7 +42,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("SUPABASE_URL", process.env.SUPABASE_URL);
   eleventyConfig.addGlobalData("SUPABASE_KEY", process.env.SUPABASE_KEY);
 
-  // Bypass dir
+  // Passthrough
   const passthroughCopies = [
     "src/robots.txt",
     "src/asset/",
@@ -52,15 +52,13 @@ export default function (eleventyConfig) {
   ];
   passthroughCopies.forEach((path) => eleventyConfig.addPassthroughCopy(path));
 
-  // Custom collection
+  // Collections
   const collectionConfigs = [
     { name: "posts", glob: "src/blog/**/*.md" },
     { name: "photos", glob: "src/photos/**/*.md" },
     { name: "recentPosts", glob: "src/blog/*.md", limit: 3 },
     { name: "recentPhotos", glob: "src/photos/*.md", limit: 6 },
   ];
-
-  // Loop custom collection
   collectionConfigs.forEach((config) => {
     eleventyConfig.addCollection(config.name, function (collectionApi) {
       let items = collectionApi.getFilteredByGlob(config.glob);
@@ -68,55 +66,51 @@ export default function (eleventyConfig) {
     });
   });
 
-  // Filter to get first image array cover
+  // Filtros
   eleventyConfig.addFilter("firstCoverImage", function (cover) {
-    if (!cover) {
-      return ""; // Retorna uma string vazia se 'cover' for nulo ou indefinido
-    }
-
-    // Caso 1: 'cover' é uma lista de objetos (como nos posts de fotos)
-    if (
-      Array.isArray(cover) &&
-      cover.length > 0 &&
-      typeof cover[0] === "object" &&
-      cover[0].url
-    ) {
+    if (!cover) return "";
+    if (Array.isArray(cover) && typeof cover[0] === "object" && cover[0].url)
       return cover[0].url;
-    }
-
-    // Caso 2: 'cover' é uma string simples (como nos posts de blog)
-    if (typeof cover === "string") {
-      return cover;
-    }
-
-    // Caso 3: 'cover' é um objeto único com uma propriedade 'url'
-    if (typeof cover === "object" && cover.url) {
-      return cover.url;
-    }
-
-    // Retorna uma string vazia se nenhum dos casos acima for verdadeiro
+    if (typeof cover === "string") return cover;
+    if (typeof cover === "object" && cover.url) return cover.url;
     return "";
   });
 
-  // Tags collection for blog and photos
+  eleventyConfig.addLiquidFilter("limitWords", function (str, wordLimit) {
+    let words = str.split(" ");
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(" ") + "..."
+      : str;
+  });
+
+  // ✅ Filtro novo para normalizar qualquer tipo de cover
+  eleventyConfig.addFilter("normalizeCover", function (cover) {
+    if (!cover) return [];
+
+    if (typeof cover === "string") {
+      return [{ url: cover }];
+    }
+
+    if (Array.isArray(cover)) {
+      if (typeof cover[0] === "string") {
+        return cover.map((item) => ({ url: item }));
+      } else if (cover[0]?.url) {
+        return cover;
+      }
+    }
+
+    if (typeof cover === "object" && cover.url) {
+      return [cover];
+    }
+
+    return [];
+  });
+
+  // Tags
   ["blog", "photos"].forEach((type) => {
     eleventyConfig.addCollection(`${type}Tags`, getTags(type));
   });
 
-  // Filter to limit words string
-  eleventyConfig.addLiquidFilter("limitWords", function (str, wordLimit) {
-    let words = str.split(" ");
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
-    }
-    return str;
-  });
-
-  /**
-   * Get tag from collection
-   * @param {'blog'|'photos'} type - Collection type (blog or photos)
-   * @returns {Array} - Array uniq tags
-   */
   function getTags(type) {
     return (collection) => {
       let tagsSet = new Set();

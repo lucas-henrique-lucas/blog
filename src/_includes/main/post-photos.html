@@ -7,21 +7,24 @@ layout: main/base.html
     {% include "nav/nav-post-photos-mobile.html" %}
 
     <div class="sm:w-1/2 flex items-center justify-center bg-black rounded-none sm:rounded-l-xl overflow-hidden relative">
+      {% assign images = cover | normalizeCover %}
+
       <div class="carousel w-full">
-        {% for image in cover %}
+        {% for image in images %}
         <div id="item{{ forloop.index }}" class="carousel-item w-full">
           <img src="{{ image.url }}" alt="Cover" class="object-contain lazyload" />
         </div>
         {% endfor %}
       </div>
 
-      {% if cover.length > 1 %}
+      {% if images.size > 1 %}
       <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10 flex gap-2 py-2">
-        {% for image in cover %}
+        {% for image in images %}
         <a aria-label="indicator item" href="#item{{ forloop.index }}" class="btn btn-circle btn-xs">{{ forloop.index }}</a>
         {% endfor %}
       </div>
       {% endif %}
+
     </div>
 
     <div class="sm:w-1/2 grow flex flex-col overflow-hidden">
