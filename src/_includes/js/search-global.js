@@ -38,7 +38,7 @@ document.getElementById('search-input').addEventListener('input', async function
   
   // Display message when input is empty
   if (query.length === 0) {
-    resultsContainer.innerHTML = '<p class="text-center text-base-conten">All content will show here</p>';
+    resultsContainer.innerHTML = '<p class="text-center text-base-conten">Começa a digitar!</p>';
     resultsContainer.classList.remove('hidden');
     return;
   }
@@ -92,7 +92,7 @@ function displaySearchResults(results) {
 // Initialize the results container with the initial message
 document.addEventListener('DOMContentLoaded', () => {
   const resultsContainer = document.getElementById('search-results');
-  resultsContainer.innerHTML = '<p class="text-center text-base-content">All content will show here</p>';
+  resultsContainer.innerHTML = '<p class="text-center text-base-content">Começa a digitar!</p>';
   resultsContainer.classList.remove('hidden'); // Show the message initially
 });
 
@@ -104,7 +104,7 @@ document.addEventListener('click', function (event) {
   // Check if the click is outside the search input and results container
   if (!searchInput.contains(event.target) && !resultsContainer.contains(event.target)) {
     searchInput.value = ''; // Clear search input
-    resultsContainer.innerHTML = '<p class="text-center text-base-content">All content will show here</p>';
+    resultsContainer.innerHTML = '<p class="text-center text-base-content">Começa a digitar!</p>';
     resultsContainer.classList.remove('hidden'); // Reset to the initial message
   }
 });
