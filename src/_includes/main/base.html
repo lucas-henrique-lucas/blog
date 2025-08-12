@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="{{ lang }}" data-theme="silk" class="scroll-smooth scroll-pt-[5rem]">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)">
+  <meta name="keyword" content="{{ keyword }}">
+  <meta name="author" content="{{ author }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/asset/index/favicon.ico">
+  <title>{{ title }}</title>
+  <meta property="og:title" content="{{ title }}">
+  {% if cover %}
+  {% if cover.size %}
+  <meta property="og:image" content="{{ rootURL }}{{ cover | firstCoverImage }}">
+  {% else %}
+  <meta property="og:image" content="{{ rootURL }}{{ cover }}">
+  {% endif %}
+  {% else %}
+  <meta property="og:image" content="{{ rootURL }}/asset/index/cover.webp">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" id="twitter-description" content="{{ description }}">
+  {% if cover %}
+  {% if cover.size %}
+  <meta name="twitter:image" content="{{ rootURL }}{{ cover | firstCoverImage }}">
+  {% else %}
+  <meta name="twitter:image" content="{{ rootURL }}{{ cover }}">
+  {% endif %}
+  {% else %}
+  <meta name="twitter:image" content="{{ rootURL }}/asset/index/cover.webp">
+  {% endif %}
+  <link rel="stylesheet" href="/asset/css/style.css">
+  <meta name="view-transition" content="same-origin">
+  <link rel="modulepreload" as="script" crossorigin href="/asset/js/search.js">
+  <link rel="modulepreload" as="script" crossorigin href="/asset/js/search-global.js">
+  <script src="/asset/js/lazysizes.min.js"></script>
+  <script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","name":"{{ title }}","url":"{{ rootURL }}{{ page.url }}"}</script>
+</head>
+
+<body class="bg-base-200">
+  <div class="sm:hero min-h-screen">
+    {{ content }}
+  </div>
+</body>
+
+</html>

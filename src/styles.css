@@ -1,0 +1,151 @@
+/* styles.css */
+@import "tailwindcss";
+@plugin 'daisyui';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --aspect-21\/9: 21 / 9;
+  --aspect-21\/8: 20 / 7;
+  --aspect-3\/4: 3 / 4;
+
+  --breakpoint-tn: 400px;
+}
+
+@plugin "daisyui/theme" {
+  name: "silk";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(97% 0.0035 67.78);
+  --color-base-200: oklch(95% 0.0081 61.42);
+  --color-base-300: oklch(90% 0.0081 61.42);
+  --color-base-content: oklch(40% 0.0081 61.42);
+  --color-primary: oklch(23.27% 0.0249 284.3);
+  --color-primary-content: oklch(94.22% 0.2505 117.44);
+  --color-secondary: oklch(23.27% 0.0249 284.3);
+  --color-secondary-content: oklch(73.92% 0.2135 50.94);
+  --color-accent: oklch(23.27% 0.0249 284.3);
+  --color-accent-content: oklch(88.92% 0.2061 189.9);
+  --color-neutral: oklch(20% 0 0);
+  --color-neutral-content: oklch(80% 0.0081 61.42);
+  --color-info: oklch(80.39% 0.1148 241.68);
+  --color-info-content: oklch(30.39% 0.1148 241.68);
+  --color-success: oklch(83.92% 0.0901 136.87);
+  --color-success-content: oklch(23.92% 0.0901 136.87);
+  --color-warning: oklch(83.92% 0.1085 80);
+  --color-warning-content: oklch(43.92% 0.1085 80);
+  --color-error: oklch(75.1% 0.1814 22.37);
+  --color-error-content: oklch(35.1% 0.1814 22.37);
+  --radius-selector: 2rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 2px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* @plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+
+  --color-primary: oklch(0.55 0.1527 254.17);
+  --color-primary-content: oklch(1 0 0);
+  --color-secondary: oklch(0.64 0.1596 253.5);
+  --color-secondary-content: oklch(1 0 0);
+  --color-accent: oklch(0.65 0.2018 24.74);
+  --color-accent-content: oklch(1 0 0);
+  --color-neutral: oklch(1 0 0);
+  --color-neutral-content: oklch(0.24 0 0);
+
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(95.69% 0 0);
+  --color-base-300: oklch(90.58% 0 0);
+  --color-base-content: oklch(0.2 0.0025 325.67);
+
+  --color-info: oklch(0.6 0.1188 250.15);
+  --color-info-content: oklch(0.12 0.0467 259.88);
+  --color-success: oklch(0.7 0.16 158.77);
+  --color-success-content: oklch(0.18 0.036 168.03);
+  --color-warning: oklch(0.8 0.1549 74.9);
+  --color-warning-content: oklch(0.14 0.029 83.02);
+  --color-error: oklch(0.56 0.1927 26.08);
+  --color-error-content: oklch(1 0 0);
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: false;
+  prefersdark: true;
+  color-scheme: "dark";
+
+  --color-primary: oklch(0.55 0.1527 254.17);
+  --color-primary-content: oklch(0.14 0.0302 235.42);
+  --color-secondary: oklch(0.64 0.1596 253.5);
+  --color-secondary-content: oklch(0.14 0.0344 244.02);
+  --color-accent: oklch(0.65 0.2018 24.74);
+  --color-accent-content: oklch(0 0 0);
+  --color-neutral: oklch(0.21 0 0);
+  --color-neutral-content: oklch(0.84 0.0041 106.49);
+
+  --color-base-100: oklch(0.24 0 0);
+  --color-base-200: oklch(0.22 0 0);
+  --color-base-300: oklch(0.19 0 0);
+  --color-base-content: oklch(0.86 0 0);
+
+  --color-info: oklch(0.6 0.1188 250.15);
+  --color-info-content: oklch(1 0 0);
+  --color-success: oklch(0.7 0.16 158.77);
+  --color-success-content: oklch(0.14 0.0429 142.94);
+  --color-warning: oklch(0.8 0.1549 74.9);
+  --color-warning-content: oklch(0 0 0);
+  --color-error: oklch(0.56 0.1927 26.08);
+  --color-error-content: oklch(0 0 0);
+} */
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility prose {
+  :root & {
+    :where(code):not(pre > code) {
+      @apply bg-primary text-base-100 border-none;
+    }
+  }
+  & kbd {
+    @apply text-base-content; /* Warna teks dalam kbd */
+  }
+  & pre {
+    @apply bg-base-200 text-base-content;
+  }
+}
+
+@utility the-navbar {
+  @apply sticky flex-row top-0 z-50 navbar bg-base-100/80 px-4 border-b border-base-200 backdrop-blur-sm;
+}
+@utility text-hidden {
+  @apply hidden;
+}
+@utility the-card {
+  @apply card rounded-none sm:rounded-xl bg-base-100 shadow-xl w-full md:max-w-3xl 2xl:max-w-4xl mx-auto min-h-screen sm:min-h-min flex flex-col sm:flex-none;
+}
+@utility the-photos-card {
+  @apply card rounded-none sm:rounded-xl bg-base-100 shadow-xl w-full md:max-w-3xl 2xl:max-w-4xl mx-auto sm:card-side min-h-screen sm:max-h-[500px] sm:min-h-[500px] 2xl:max-h-[600px] 2xl:min-h-[600px] flex flex-col;
+}

@@ -1,0 +1,74 @@
+---
+layout: main/base.html
+---
+
+<div class="sm:container m-0 p-0 sm:mx-auto sm:px-4 md:px-10">
+  <div class="the-photos-card">
+    {% include "nav/nav-post-photos-mobile.html" %}
+
+    <div class="sm:w-1/2 flex items-center justify-center bg-black rounded-none sm:rounded-l-xl overflow-hidden relative">
+      {% assign images = cover | normalizeCover %}
+
+      <div class="carousel w-full">
+        {% for image in images %}
+        <div id="item{{ forloop.index }}" class="carousel-item w-full">
+          <img src="{{ image.url }}" alt="Cover" class="object-contain lazyload" />
+        </div>
+        {% endfor %}
+      </div>
+
+      {% if images.size > 1 %}
+      <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10 flex gap-2 py-2">
+        {% for image in images %}
+        <a aria-label="indicator item" href="#item{{ forloop.index }}" class="btn btn-circle btn-xs">{{ forloop.index }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="sm:w-1/2 grow flex flex-col overflow-hidden">
+      {% include "nav/nav-post-photos-desktop.html" %}
+
+      <div class="card-body sm:overflow-y-auto grow">
+        <div class="prose max-w-none">
+          <h3>{{ title }}</h3>
+          <div class="text-sm m-0">{{ date | date: "%a %d %b %Y" }}</div>
+          {{ content }}
+        </div>
+      </div>
+
+      {% if collections.photos %}
+      {% assign previousPhotos = collections.photos | getPreviousCollectionItem %}
+      {% assign nextPhotos = collections.photos | getNextCollectionItem %}
+      {% if nextPhotos or previousPhotos %}
+      <div class="card-action navbar bg-base-100 rounded-b-xl px-4 border-t border-base-200">
+        <div class="navbar-start">
+          {% if nextPhotos %}
+          <a aria-label="next" href="{{ nextPhotos.url }}" class="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </a>
+          {% endif %}
+        </div>
+        <div class="navbar-center">
+          <a class="text-md font-bold link link-hover" href="/blog/photos-license/">License</a>
+        </div>
+        <div class="navbar-end">
+          {% if previousPhotos %}
+          <a aria-label="prev" href="{{ previousPhotos.url }}" class="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% include "post/sharemodal.html" %}
