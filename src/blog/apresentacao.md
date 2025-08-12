@@ -45,7 +45,7 @@ Eu estou aqui justamente para evitar isso. Meu trabalho é simples de explicar: 
 
 - - -
 
-## 📋 Como Funciona (meu “passo a passo” sem enrolação)
+## Como Funciona (meu “passo a passo” sem enrolação)
 
 1. **Entendimento**
 
